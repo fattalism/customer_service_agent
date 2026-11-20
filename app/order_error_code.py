@@ -1,0 +1,6 @@
+from enum import Enum
+
+
+class ORDER_ERROR_CODE(str, Enum):
+    ORDER_NOT_CANCELABLE = 'ORDER-NOT-CANCELABLE'
+    ORDER_NOT_FOUND = 'ORDER-NOT-FOUND'
