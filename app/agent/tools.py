@@ -30,17 +30,17 @@ def execute_tool(response: dict) -> dict:
     try:
         tool_call = ToolCall.model_validate(response)
     except pydantic.ValidationError:
-        return {"success": False, "error": "Tool call not parseable"}
+        return {"success": False, "data": None, "error": "Tool call not parseable"}
 
     if tool_call.name in tool_registry:
         try:
             tool_def = tool_registry[tool_call.name]['schema'].model_validate(
                 tool_call.arguments)
         except pydantic.ValidationError:
-            return {"success": False, "error": "Arguments do not match function signature"}
+            return {"success": False, "data": None, "error": "Arguments do not match function signature"}
 
         tool_function = tool_registry[tool_call.name]['function']
         result = tool_function(**tool_def.model_dump())
     else:
-        result = {"success": False, "error": "Unknown tool"}
+        result = {"success": False, "data": None, "error": "Unknown tool"}
     return result

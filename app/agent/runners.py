@@ -101,7 +101,6 @@ def run_agent(user_message: str):
     }
 
 
-response = run_agent(
-    "Get the details for orders F1001"
-)
-print(response)
+if __name__ == "__main__":
+    response = run_agent("Get the details for orders F1001")
+    print(response)
